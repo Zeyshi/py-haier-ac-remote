@@ -1,8 +1,10 @@
 from enum import Enum
 
+
 class Limits(Enum):
     OFF = 0
     ONLY_VERTICAL = 1
+
 
 class FanSpeed(Enum):
     MAX = 0
@@ -10,12 +12,14 @@ class FanSpeed(Enum):
     MIN = 2
     AUTO = 3
 
+
 class Mode(Enum):
     SMART = 0
     COOL = 1
     HEAT = 2
     FAN = 3
     DRY = 4
+
 
 class State:
     def __init__(self) -> None:
@@ -36,8 +40,13 @@ class State:
         Mode: {}
         Health: {}
         Limits: {}""".format(
-          self._power, self._current_temp, self._target_temp,
-          self._fan_speed, self._mode, self._health, self._limits
+            self._power,
+            self._current_temp,
+            self._target_temp,
+            self._fan_speed,
+            self._mode,
+            self._health,
+            self._limits,
         )
 
     def update(self, current_temp, target_temp, fan_speed, mode, health, limits, power):

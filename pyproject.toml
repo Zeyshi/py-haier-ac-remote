@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "py-haier-ac-remote"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+construct = "^2.10.70"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.7"
+mypy = "^1.11.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
