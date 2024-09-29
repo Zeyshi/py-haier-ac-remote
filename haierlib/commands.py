@@ -1,7 +1,8 @@
 import binascii
 from enum import Enum, StrEnum
-from haierlib import ac_types
 from typing import Callable
+
+from haierlib import ac_types
 
 
 class Commands(StrEnum):
@@ -14,7 +15,7 @@ class Commands(StrEnum):
 
 
 def set_state(state: ac_types.State) -> str:
-    def checksum(s):
+    def checksum(s: str) -> str:
         checksum = (
             sum(
                 int(c, 16) * (i % 2 if i % 2 else 16)

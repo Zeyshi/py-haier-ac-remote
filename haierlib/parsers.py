@@ -1,5 +1,8 @@
-import construct  # type: ignore
-from haierlib.ac_types import State, Mode, FanSpeed, Limits
+from typing import Optional
+
+import construct  # type: ignore[import-untyped]
+
+from haierlib.ac_types import FanSpeed, Limits, Mode, State
 
 state_struct = construct.Struct(
     "start" / construct.Int16ub,  # TODO assert == 65535
@@ -17,7 +20,7 @@ state_struct = construct.Struct(
 )
 
 
-def get_cmd_struct(data_len):
+def get_cmd_struct(data_len: int) -> construct.Struct:
     return construct.Struct(
         "data_magic" / construct.Int16ub,
         "type" / construct.Int8ub,
@@ -49,9 +52,11 @@ resp_struct = construct.Struct(
 # TODO check execute() on parsers.ts for verifications
 
 
-def parse_state(resp, state=None):
+def parse_state(
+    resp: construct.Struct, state: Optional[State] = None
+) -> Optional[State]:
     if resp.cmd.type != 34:
-        return
+        return None
 
     # Create a new state
     if not state:
@@ -64,8 +69,8 @@ def parse_state(resp, state=None):
                 "data_magic": resp.cmd.data_magic,
                 "type": resp.cmd.type,
                 "data": resp.cmd.data,
-            }
-        )
+            },
+        ),
     )
 
     # Adjust and convert to State object
@@ -82,6 +87,6 @@ def parse_state(resp, state=None):
     return state
 
 
-def parse_resp(data, state=None):
+def parse_resp(data: bytes, state: Optional[State] = None) -> Optional[State]:
     resp = resp_struct.parse(data)
     return parse_state(resp, state)

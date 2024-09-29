@@ -1,13 +1,17 @@
+import socket
+from typing import Optional
+
 from haierlib import ac_types, encoders, parsers
 from haierlib.commands import Commands, RawCommands, order_byte
-from typing import Optional
-import socket
-import binascii
 
 
 class HaierAC:
     def __init__(
-        self, ip: str, mac: str, port: int = 56800, timeout: int = 500
+        self,
+        ip: str,
+        mac: str,
+        port: int = 56800,
+        timeout: int = 500,
     ) -> None:
         self._ip = ip
         self._port = port
@@ -52,9 +56,9 @@ class HaierAC:
                 res += RawCommands.off.value
             case Commands.SetState:
                 res += order_byte(
-                    len(RawCommands.set_state(state).split(" ")) - 1
+                    len(RawCommands.set_state(state).split(" ")) - 1,  # type: ignore[operator]
                 )
-                res += RawCommands.set_state(state)
+                res += RawCommands.set_state(state)  # type: ignore[operator]
         return bytes.fromhex(res)
 
     def ping(self) -> bytes:

@@ -32,24 +32,25 @@ class State:
         self._power = False
 
     def __str__(self) -> str:
-        return """Haier AC State:
-        Power: {},
-        Current Temp: {}
-        Target Temp: {}
-        Fan Speed: {}
-        Mode: {}
-        Health: {}
-        Limits: {}""".format(
-            self._power,
-            self._current_temp,
-            self._target_temp,
-            self._fan_speed,
-            self._mode,
-            self._health,
-            self._limits,
-        )
+        return f"""Haier AC State:
+        Power: {self._power},
+        Current Temp: {self._current_temp}
+        Target Temp: {self._target_temp}
+        Fan Speed: {self._fan_speed}
+        Mode: {self._mode}
+        Health: {self._health}
+        Limits: {self._limits}"""
 
-    def update(self, current_temp, target_temp, fan_speed, mode, health, limits, power):
+    def update(
+        self,
+        current_temp: int,
+        target_temp: int,
+        fan_speed: FanSpeed,
+        mode: Mode,
+        health: bool,
+        limits: Limits,
+        power: bool,
+    ) -> None:
         self._current_temp = current_temp
         self._target_temp = target_temp
         self._fan_speed = fan_speed
